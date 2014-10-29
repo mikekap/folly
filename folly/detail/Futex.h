@@ -82,7 +82,7 @@ struct Futex : Atom<uint32_t>, boost::noncopyable {
 
     auto duration = absTime.time_since_epoch();
     if (std::is_same<Clock, system_clock>::value) {
-      time_point<system_clock> absSystemTime(duration);
+      time_point<system_clock> absSystemTime(duration_cast<system_clock::duration>(duration));
       return futexWaitImpl(expected, &absSystemTime, nullptr, waitMask);
     } else {
       time_point<steady_clock> absSteadyTime(duration);
